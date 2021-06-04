@@ -1,9 +1,10 @@
 # pylint: disable=all
 import functools
+import warnings
 from typing import Callable, Dict
 
 from pysmt.constants import is_pysmt_integer
-from pysmt.shortcuts import get_env
+from pysmt.shortcuts import get_env, reset_env
 from pysmt.shortcuts import INT
 from pysmt.shortcuts import REAL
 from pysmt.smtlib.parser import SmtLibParser
@@ -169,10 +170,17 @@ def smtlib_to_sympy_constraint(
   smtlib_with_interpreted_symbols = (
       interpreted_symbols_declarations + '\n' + smtlib_input)
 
+  reset_env()
   parser = SmtLibParser()
   script = parser.get_script(cStringIO(smtlib_with_interpreted_symbols))
   f = script.get_last_formula()
   converter = SMTToSympyWalker(get_env(), interpreted_constants,
                                interpreted_unary_functions)
   f_sympy = converter.walk(f)
-  return sympy.simplify(f_sympy)
+  f_sympy = sympy.logic.simplify_logic(f_sympy)
+  f_sympy = sympy.simplify(f_sympy)
+  if f_sympy.atoms(sympy.logic.Or):
+    warnings.warn(
+        'Disjunctive constraints are not supported by RealPaver. Consider replacing it with an adequate interval constraint propagation tool for benefit from all the features of SYMPAIS'
+    )
+  return f_sympy
