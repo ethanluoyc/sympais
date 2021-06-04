@@ -1,4 +1,6 @@
 # Notebooks
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ethanluoyc/sympais/)
+
 
 ## Overview
 This directory includes a few notebooks for getting started with SYMPAIS. We also provide links to launch

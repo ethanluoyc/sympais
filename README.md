@@ -5,6 +5,9 @@
 
 [![pytest](https://github.com/ethanluoyc/sympais/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/ethanluoyc/sympais/actions/workflows/ci.yaml)
 [![license](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+[![DOI](https://zenodo.org/badge/373197985.svg)](https://zenodo.org/badge/latestdoi/373197985)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](./notebooks)
+
 
 <p align="center">
   <img src="./figures/pimais_demo.svg">
@@ -99,6 +102,8 @@ poetry run python examples/run_sphere_3_dmc.py
 ```
 Notice the prefix `poetry run`. This ensures that you are using the correct Python virtual environment when running the scripts.
 ## Notebooks
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](./notebooks)
+
 In addition to the example scripts, we provide Jupyter notebooks for reproducing
 the results in our paper as well as a tutorial notebook ([getting_started.ipynb](./notebooks/getting_started.ipynb)) which walks you through the
 APIs for extending SYMPAIS. The notebooks handle installing SYMPAIS in Colab so that
