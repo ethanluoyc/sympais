@@ -4,7 +4,7 @@
 **[Notebooks](#notebooks)** | **[Paper](https://arxiv.org/abs/2010.05050)**
 
 [![pytest](https://github.com/ethanluoyc/sympais/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/ethanluoyc/sympais/actions/workflows/ci.yaml)
-[![license](https://img.shields.io/github/license/ethanluoyc/sympais)](./LICENSE)
+[![license](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 
 <p align="center">
   <img src="./figures/pimais_demo.svg">
