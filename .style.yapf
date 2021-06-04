@@ -1,0 +1,4 @@
+[style]
+based_on_style = yapf
+column_limit = 88
+split_before_arithmetic_operator = true

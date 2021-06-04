@@ -1,0 +1,11 @@
+# @package _group_
+name: hpimais
+num_proposals: 100
+num_samples_per_iter: 5
+proposal_scale_multiplier: 0.5
+step_size: 0.1
+num_steps: 20
+init: z3
+num_warmup_steps: 500
+resample: True
+tune: False

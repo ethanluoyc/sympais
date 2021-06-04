@@ -1,0 +1,60 @@
+Since we ran the mathematica experiments in a different machine 
+(r3.large instance in AWS), we decided to run Mathematica directly
+without having qCORAL as a middle man. For that, we:
+
+ - converted the inputs to mathematica format (using the
+   MathematicaCaller and MathematicaVisitor classes);
+
+ - wrapped the calls to NProbability in a timing function
+   (AbsoluteTiming)
+
+ - used this new script as input for mathematica (check the runMath.sh
+   script for more details).
+
+The input files are spread over 4 folders:
+
+ - exponential: VolComp and qCORAL benchmarks, all variables are
+   exponentially distributed. Used in table 4.
+
+ - normal: VolComp and qCORAL benchmarks, all variables are normally
+   distributed. Used in table 4.
+
+ - twonormal: VolComp and qCORAL benchmarks, two of the variables are
+   normally distributed. Used in table 3.
+
+ - montecarlo: Same as "normal", but uses Monte Carlo as the
+   integration method in the calls for NProbability. Not used anywhere
+   in the paper; we used it for debugging/validation.
+
+
+
+[Assertion ID] File Name -> Benchmark and Assertion
+
+[1]  framingham-0 -> ARTRIAL points ≥ 10 
+[2]  framingham-1 -> ARTRIAL points − pointsErr ≥ 5 
+[3]  framingham-2 -> ARTRIAL pointsErr − points ≤ 5 
+[4]  example-cart-12 -> CART count ≥ 3 
+[5]  example-cart-14 -> CART count ≥ 1
+[6]  framingham-hypten-0 -> CORONARY tmp ≥ 5 
+[7]  framingham-hypten-3 -> CORONARY tmp ≤ − 5 
+[8]	 example-ckd-epi-0 -> EGFR EPI f1 − f ≥ 0.1 
+[9]	 example-ckd-epi-1 -> EGFR EPI f − f1 ≥ 0.1 
+[10] example-ckd-epi-simple-0 -> EGFR EPI SIMPLE f1 ≤ 4.4 ∧ f ≥ 4.6 
+[11] example-ckd-epi-simple-1 -> EGFR EPI SIMPLE f1 ≥ 4.6 ∧ f ≤ 4.4 
+[12] example-invPend-0 -> INVPEND pAng <= 1 
+[13] example-carton-5-0 -> PACK count ≥ 5
+[14] example-carton-5-1 -> PACK count ≥ 6
+[15] example-carton-5-2 -> PACK count ≥ 7
+[16] example-carton-5-5 -> PACK count ≥ 10
+[17] example-carton-5-18 -> PACK totalWeight ≥ 6
+[18] example-carton-5-20 -> PACK totalWeight ≥ 5
+[19] example-carton-5-22 -> PACK totalWeight ≥ 4
+
+#we didn't include the VOL benchmark in the experiments due to
+#performance reasons (Mathematica and qCORAL+discretization can't
+#handle the large amount of variables in this subject). Also, it only
+#has a single, non partitionable constraint.
+
+[21] apollo.nodq -> APOLLO
+[22] conflict.nodeq -> CONFLICT
+[23] turnlogic.nodeq -> TURNLOGIC

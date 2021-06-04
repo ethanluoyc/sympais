@@ -1,0 +1,11 @@
+# @package _group_
+name: pimais
+num_proposals: 100
+num_samples_per_iter: 5
+proposal_scale_multiplier: 0.5
+rmh_scale: 1.0
+init: z3
+tune: True
+num_warmup_steps: 100
+window_size: 25
+resample: True

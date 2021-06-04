@@ -1,0 +1,12 @@
+[flake8]
+max-line-length = 88
+ignore =
+    E111
+    E114
+    E121 # line continuations
+    W503, W504 # line breaks around binary operators
+    E731 # Allow lambda expression assignment
+    E125 # indentation
+exclude = .git,__pycache__,docs/source/conf.py,old,build,dist,realpaver,third_party
+per-file-ignores:
+    **/__init__.py:F401

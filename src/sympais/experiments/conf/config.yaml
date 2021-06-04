@@ -1,0 +1,11 @@
+hydra:
+    sweep:
+      subdir: ${hydra.job.num}_${hydra.job.override_dirname}
+defaults:
+    - hydra/launcher: joblib
+    - method: pimais
+    - task: sphere
+
+seed: 0
+num_samples: 1000000
+disable_jit: false

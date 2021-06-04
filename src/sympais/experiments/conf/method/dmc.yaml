@@ -1,0 +1,3 @@
+# @package _group_
+name: dmc
+batch_size: 5000

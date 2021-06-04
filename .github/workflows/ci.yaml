@@ -1,0 +1,85 @@
+name: pytest
+
+on:
+  [push, pull_request]
+
+jobs:
+  test-ubuntu:
+    runs-on: ubuntu-latest
+    env:
+      DEBIAN_FRONTEND: noninteractive
+      PYTHONUNBUFFERED: 1
+      PIP_NO_CACHE_DIR: off
+      PIP_DISABLE_PIP_VERSION_CHECK: on
+      PIP_DEFAULT_TIMEOUT: 100
+      POETRY_NO_INTERACTION: 1
+      POETRY_HOME: "/opt/poetry"
+
+
+
+    strategy:
+      matrix:
+        python-version: [3.8]
+    steps:
+    - uses: actions/checkout@v2
+    # - name: Set up Python ${{ matrix.python-version }}
+    #   uses: actions/setup-python@v1
+    #   with:
+    #     python-version: ${{ matrix.python-version }}
+    # - uses: actions/cache@v2
+    #   with:
+    #     path: ${{ env.pythonLocation }}
+    #     key: ${{ runner.os }}-pydeps-${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('requirements/*.txt') }}
+
+
+    # - name: Cache Realpaver
+    #   uses: actions/cache@v2
+    #   id: cache-realpaver
+    #   with:
+    #     path: ~/.bin/realpaver
+    #     key: realpaver-${{ runner.os }}
+    #     restore-keys: |
+    #       realpaver-${{ runner.os }}
+
+    - name: Install RealPaver
+      # if: steps.cache-realpaver.outputs.cache-hit != 'true'
+      run: |
+        sudo apt-get install flex bison libfl-dev libgmp-dev
+        cd third_party/Realpaver && sudo ./build.sh
+        which realpaver
+
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
+        echo "/opt/poetry/bin" >> $GITHUB_PATH
+
+    - name: Cache Poetry virtualenv
+      uses: actions/cache@v2
+      id: cache-poetry
+      with:
+        path: ~/.virtualenvs
+        key: poetry-v1-${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml') }}
+        restore-keys: |
+          poetry-v1-${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml') }}
+
+    - name: Install Dependencies
+      if: steps.cache-poetry.outputs.cache-hit != 'true'
+      run: |
+        poetry config virtualenvs.path ~/.virtualenvs
+        poetry install --no-interaction --no-ansi
+        poetry env info
+
+    # - name: run YAPF to test if python code is correctly formatted
+    #   uses: AlexanderMelde/yapf-action@master
+    #   with:
+    #     args: --verbose
+
+    # - name: Check types with pytype
+    #   run: |
+    #     make typecheck
+
+    - name: Test with pytest
+      run: |
+        poetry config virtualenvs.path ~/.virtualenvs
+        poetry run pytest src/

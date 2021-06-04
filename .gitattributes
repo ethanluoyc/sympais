@@ -1,0 +1,3 @@
+third_party/**/* linguist-vendored
+src/sympais/tasks/subjects/**/* linguist-vendored
+src/sympais/tasks/vinci_inputs/**/* linguist-vendored
