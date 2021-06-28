@@ -18,7 +18,6 @@ Python implementation of SYMPAIS introduced in the paper
 > Yicheng Luo, Antonio Filieri, and Yuan Zhou. _Symbolic Parallel Adaptive Importance Sampling for Probabilistic Program Analysis._ To appear in Proceedings of the 29th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering (ESEC/FSE 2021).
 [arXiv:2010.05050](https://arxiv.org/abs/2010.05050).
 
-Note: the arXiv version is currently outdated and will updated soon to include the material from the conference submission.
 ## Installation
 ### Requirements
 The library is tested in the following environment.
